@@ -1,5 +1,5 @@
 import API_K from './config'
-
+    
 const API_TOKEN = API_K;
 
 export function getFilmsFromApiWithSearchedText (text) {
