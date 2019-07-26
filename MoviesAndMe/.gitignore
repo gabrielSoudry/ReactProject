@@ -9,4 +9,4 @@ npm-debug.*
 web-build/
 web-report/
 .env
-config.js
+config_api.js

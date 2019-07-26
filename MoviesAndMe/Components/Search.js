@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { Text, StyleSheet, View, TextInput, Button, FlatList } from 'react-native'
-import films from '../Helpers/filmsData'
 import FilmItem from './FilmItem'
+import  {getFilmsFromApiWithSearchedText} from '../API/TMDBApi.js'
 
 const styles = StyleSheet.create({
   textinput: {
@@ -18,18 +18,28 @@ const styles = StyleSheet.create({
 
 class Search extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = { films: [] }
+  }
+
+  _loadFilms() {
+    getFilmsFromApiWithSearchedText("star").then(data => {
+        this.setState({ films: data.results })
+    })
+}
+
   render() {
     return (
       <View style={{ marginTop: 40 }}>
 
         <TextInput style={styles.textinput} placeholder='Titre du film' />
-        <Button title='Rechercher' onPress={() => { }} />
+        <Button title='Rechercher' onPress={() => this._loadFilms()} />
 
         <FlatList
-          data={films}
+          data={this.state.films}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <FilmItem film={item} />}
-
         />
 
       </View>
